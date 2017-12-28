@@ -64,6 +64,9 @@ function initVideo() {
           console.log(' -> skipped');
         }
       });
+      if (videoIndex === 0) {
+        alert('no video available');
+      }
     })
     .catch(function (err) {
       console.error('enumerateDevide ERROR:', err);
@@ -126,6 +129,20 @@ function getNthActiveView(num) {
 }
 
 /* ---------- style ---------- */
+
+function setWallTitle() {
+  document.body.style.backgroundImage = 'url("' + config.wallpaper + '")';
+  getElement('title').innerHTML = config.title;
+}
+
+function setWoopers() {
+  getElement('face1').src = config.whoopers[0].face;
+  getElement('name1').innerHTML += config.whoopers[0].name;
+  getElement('face2').src = config.whoopers[1].face;
+  getElement('name2').innerHTML += config.whoopers[1].name;
+  getElement('face3').src = config.whoopers[2].face;
+  getElement('name3').innerHTML += config.whoopers[2].name;
+}
 
 function setViews() {
   initViews();
@@ -213,21 +230,21 @@ function setViewMode3() {
   var view;
   // view 1
   view = getNthActiveView(1);
-  view.style.width = '71vh';
+  view.style.width = '70vh';
   view.style.height = '53vh';
   view.style.top = '0px';
   view.style.display = 'inline';
   adjustNamePostionLeft(view);
   // view 2
   view = getNthActiveView(2);
-  view.style.width = '71vh';
+  view.style.width = '70vh';
   view.style.height = '53vh';
   view.style.left = '0px';
   view.style.display = 'inline';
   adjustNamePostionLeft(view);
   // view 3
   view = getNthActiveView(3);
-  view.style.width = '71vh';
+  view.style.width = '70vh';
   view.style.height = '53vh';
   view.style.right = '0px';
   view.style.display = 'inline';
@@ -283,11 +300,16 @@ document.onkeydown = function (e) {
 };
 
 function init() {
-  console.log(location.search);
+  var ua = window.navigator.userAgent.toLowerCase();
+  if (ua.indexOf('chrome') === -1) {
+    alert('Please use Google Chrome.');
+  }
   if (location.search === '?s') {
     console.log('stability mode');
     STABILITY_MODE = true;
   }
+  setWallTitle();
+  setWoopers();
   initVideo();
 }
 
