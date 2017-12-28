@@ -37,7 +37,12 @@ function initVideo() {
     .then(function (devices) {
       devices.forEach(function (dev) {
         if (dev.kind === 'videoinput') {
-          console.log(dev.label, dev.deviceId);
+          if (dev.label === '') {
+            alert('Please allow camera access.');
+            return;
+          } else {
+            console.log(dev.label, dev.deviceId);
+          }
         } else {
           return;
         }
@@ -77,9 +82,7 @@ function attachStream(vidx, did) {
   var maxwidth = (STABILITY_MODE ? 352 : 640);
   var maxfrate = (STABILITY_MODE ? 16 : 32);
   var constraints = {
-    audio: {
-      deviceId: null
-    },
+    audio: false,
     video: {
       deviceId: did,
       width: {
@@ -166,7 +169,6 @@ function setViews() {
 
 function initViews() {
   getElement('main').style.alignItems = 'center';
-  getElement('title').style.display = 'inline';
   initViewStyle(getElement('view1'));
   initViewStyle(getElement('view2'));
   initViewStyle(getElement('view3'));
@@ -200,7 +202,6 @@ function setViewMode1() {
   view.style.height = '75vw';
   view.style.border = 'none';
   view.style.display = 'inline';
-  getElement('title').style.display = 'none';
   adjustNamePostionTop(view);
   adjustNamePostionLeft(view);
 }
@@ -304,7 +305,8 @@ function init() {
   if (ua.indexOf('chrome') === -1) {
     alert('Please use Google Chrome.');
   }
-  if (location.search === '?s') {
+  if (location.search === '?s'
+      || location.search === '?mode=stability') {
     console.log('stability mode');
     STABILITY_MODE = true;
   }
