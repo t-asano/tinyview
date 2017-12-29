@@ -38,7 +38,7 @@ function initVideo() {
       devices.forEach(function (dev) {
         if (dev.kind === 'videoinput') {
           if (dev.label === '') {
-            alert('Please allow camera access.');
+            alert('Please allow camera access');
             return;
           } else {
             console.log(dev.label, dev.deviceId);
@@ -70,7 +70,7 @@ function initVideo() {
         }
       });
       if (videoIndex === 0) {
-        alert('no video available');
+        alert('No video available');
       }
     })
     .catch(function (err) {
@@ -303,7 +303,7 @@ document.onkeydown = function (e) {
 function init() {
   var ua = window.navigator.userAgent.toLowerCase();
   if (ua.indexOf('chrome') === -1) {
-    alert('Please use Google Chrome.');
+    alert('Please use Google Chrome');
   }
   if (location.search === '?s'
       || location.search === '?mode=stability') {
