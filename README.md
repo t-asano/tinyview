@@ -2,7 +2,7 @@
 
 Tiny Viewは、FPV映像を3画面同時に表示できるWebアプリです。USB接続型(UVC対応)のFPV受信機をPCに接続し、PCのブラウザでURLを開いて利用します。
 
-<div align="center"><img alt="demo movie" src="https://github.com/t-asano/tinyview/raw/master/docs/img/demo.gif"></div>
+<img alt="demo movie" src="https://github.com/t-asano/tinyview/raw/master/docs/img/demo.gif">
 
 ## 動作環境
 
