@@ -2,6 +2,7 @@
 /*
  * Tiny View
  */
+const APP_VERSION = 'v1.0.1';
 const VIDEO_HIGH_MAXWIDTH = 640;
 const VIDEO_HIGH_MAXFRATE = 32;
 const VIDEO_MID_MAXWIDTH = 640;
@@ -323,6 +324,7 @@ document.onkeydown = function (e) {
 };
 
 function init() {
+  console.log('Tiny View ' + APP_VERSION);
   var ua = window.navigator.userAgent.toLowerCase();
   if (ua.indexOf('chrome') === -1) {
     alert('Please use Google Chrome');
