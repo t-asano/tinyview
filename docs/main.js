@@ -2,8 +2,13 @@
 /*
  * Tiny View
  */
-var STABILITY_MODE = false;
-var windowTimer = 0;
+const VIDEO_HIGH_MAXWIDTH = 640;
+const VIDEO_HIGH_MAXFRATE = 32;
+const VIDEO_MID_MAXWIDTH = 640;
+const VIDEO_MID_MAXFRATE = 16;
+const VIDEO_LOW_MAXWIDTH = 352;
+const VIDEO_LOW_MAXFRATE = 16;
+var videoMode = '';
 var videoIndex = 0;
 var videoNum = 0;
 var videoObject = [
@@ -23,6 +28,7 @@ var videoObject = [
     active: false
   },
 ];
+var windowTimer = 0;
 
 /* ---------- common ---------- */
 
@@ -79,8 +85,24 @@ function initVideo() {
 }
 
 function attachStream(vidx, did) {
-  var maxwidth = (STABILITY_MODE ? 352 : 640);
-  var maxfrate = (STABILITY_MODE ? 16 : 32);
+  var maxwidth, maxfrate;
+  switch (videoMode) {
+  case 'high':
+    maxwidth = VIDEO_HIGH_MAXWIDTH;
+    maxfrate = VIDEO_HIGH_MAXWIDTH;
+    break;
+  case 'mid':
+    maxwidth = VIDEO_MID_MAXWIDTH;
+    maxfrate = VIDEO_MID_MAXFRATE;
+    break;
+  case 'low':
+    maxwidth = VIDEO_LOW_MAXWIDTH;
+    maxfrate = VIDEO_LOW_MAXFRATE;
+    break;
+  default:
+    console.log('Unknown video mode');
+    return;
+  }
   var constraints = {
     audio: false,
     video: {
@@ -194,7 +216,7 @@ function initViewStyle(view) {
 }
 
 function setViewMode1() {
-  console.log('view mode 1');
+  console.log('view mode: 1');
   var view;
   // view 1
   view = getNthActiveView(1);
@@ -207,7 +229,7 @@ function setViewMode1() {
 }
 
 function setViewMode2() {
-  console.log('view mode 2');
+  console.log('view mode: 2');
   var view;
   // view 1
   view = getNthActiveView(1);
@@ -226,7 +248,7 @@ function setViewMode2() {
 }
 
 function setViewMode3() {
-  console.log('view mode 3');
+  console.log('view mode: 3');
   getElement('main').style.alignItems = 'flex-end';
   var view;
   // view 1
@@ -263,7 +285,7 @@ function adjustNamePostionTop(view) {
 }
 
 function adjustNamePostionLeft(view) {
-  var left = STABILITY_MODE ? '80px' : '15px';
+  var left = (videoMode === 'low') ? '80px' : '15px';
   getElement('name1').style.left = left;
   getElement('name2').style.left = left;
   getElement('name3').style.left = left;
@@ -305,10 +327,21 @@ function init() {
   if (ua.indexOf('chrome') === -1) {
     alert('Please use Google Chrome');
   }
-  if (location.search === '?s'
-      || location.search === '?mode=stability') {
-    console.log('stability mode');
-    STABILITY_MODE = true;
+  var option = location.search;
+  switch (option) {
+  case '?vmode=mid':
+    console.log('video mode: mid');
+    videoMode = 'mid';
+    break;
+  case '?vmode=low':
+    console.log('video mode: low');
+    videoMode = 'low';
+    break;
+  case '?vmode=high':
+  default:
+    console.log('video mode: high');
+    videoMode = 'high';
+    break;
   }
   setWallTitle();
   setWoopers();
