@@ -53,7 +53,7 @@ function initVideo() {
         } else {
           return;
         }
-        // ROTG01 displays 'USB2.0 PC CAMERA'.
+        // ROTG01/02 displays 'USB2.0 PC CAMERA'.
         // Please modify as you like.
         if (dev.label.indexOf('USB2.0 PC CAMERA') !== -1) {
           if (videoIndex <= 2) {
